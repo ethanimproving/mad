@@ -20,7 +20,7 @@ public class AppAPIController {
     }
 
     @GetMapping("/movies")
-    public List<Movie> home() {
+    public List<Movie> movies() {
         return movieRepository.getMovies();
     }
 }
