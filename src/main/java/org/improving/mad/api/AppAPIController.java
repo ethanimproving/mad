@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class AppAPIController {
 
     private MovieRepository movieRepository;
@@ -18,7 +19,7 @@ public class AppAPIController {
         this.movieRepository = movieRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/movies")
     public List<Movie> home() {
         return movieRepository.getMovies();
     }
