@@ -1,17 +1,36 @@
 package org.improving.mad.entity;
 
-public class Movie {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "movie")
+public class Movie implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movieId", unique = true)
+    private int movieId;
+
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "year", nullable = false)
     private int year;
+
+    @Column(name = "rating")
     private int rating;
-    private String director;
+
+    @Column(name = "runTime")
     private int runTime;
 
-    public Movie(String title, int year, int rating, String director, int runTime) {
+    public Movie() {
+    }
+
+    public Movie(int movieId, String title, int year, int rating, int runTime) {
+        this.movieId = movieId;
         this.title = title;
         this.year = year;
         this.rating = rating;
-        this.director = director;
         this.runTime = runTime;
     }
 
@@ -39,12 +58,12 @@ public class Movie {
         this.rating = rating;
     }
 
-    public String getDirector() {
-        return director;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public int getRunTime() {
