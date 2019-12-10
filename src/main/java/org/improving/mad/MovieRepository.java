@@ -5,12 +5,38 @@ import org.improving.mad.entity.Movie;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class MovieRepository {
+
+    // CREATE
+
+    public void addMovie(String title, int year, int rating, int runTime) {
+        EntityManager em = JPAUtility.getEntityManager();
+        EntityTransaction et = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            Movie movie = new Movie();
+            movie.setTitle(title);
+            movie.setYear(year);
+            movie.setRating(rating);
+            movie.setRunTime(runTime);
+            em.persist(movie);
+            et.commit();
+        } catch (Exception ex) {
+            if(et != null) {
+                et.rollback();
+            }
+            ex.printStackTrace();
+        }
+    }
+
+    // READ
 
     public List<Movie> getMovies() {
         EntityManager em = JPAUtility.getEntityManager();

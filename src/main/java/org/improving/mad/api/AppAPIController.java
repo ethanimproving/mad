@@ -26,4 +26,10 @@ public class AppAPIController {
     public Movie movies(@PathVariable int movieId) {
         return movieRepository.getMovie(movieId);
     }
+
+    @PostMapping("/movies/form")
+    public void movies(@RequestParam String title, @RequestParam int year, @RequestParam int rating,
+                       @RequestParam int runTime) {
+        movieRepository.addMovie(title, year, rating, runTime);
+    }
 }
