@@ -26,4 +26,21 @@ public class MovieRepository {
         return null;
     }
 
+    public Movie getMovie(int id) {
+        EntityManager em = JPAUtility.getEntityManager();
+        String query = "select c from Movie c where c.id = :movieId";
+
+        TypedQuery<Movie> tq = em.createQuery(query, Movie.class);
+        tq.setParameter("movieId", id);
+        Movie movie;
+        try {
+            movie = tq.getSingleResult();
+            return movie;
+        } catch (NoResultException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+
+    }
+
 }
