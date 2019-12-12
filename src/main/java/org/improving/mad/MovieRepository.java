@@ -66,7 +66,28 @@ public class MovieRepository {
             ex.printStackTrace();
         }
         return null;
+    }
 
+    // UPDATE
+
+    public void changeRating(int id, int rating) {
+        EntityManager em = JPAUtility.getEntityManager();
+        EntityTransaction et = null;
+        Movie movie = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            movie = em.find(Movie.class, id);
+            movie.setRating(rating);
+
+            em.persist(movie);
+            et.commit();
+        } catch (Exception ex) {
+            if(et != null) {
+                et.rollback();
+            }
+            ex.printStackTrace();
+        }
     }
 
 }
