@@ -19,8 +19,8 @@ export class MovieList extends React.Component {
               <tbody>
               {this.state.movies.map((movie, i) => (
                 <tr key={i} class={"findResult " + (i % 2 == 0 ? 'even' : 'odd')}>
-                  <td class="primary_photo"> <a href={"/" + movie.movieId}></a> </td>
-                  <td class="result_text"> <a href={"/" + movie.movieId}>{movie.title}</a> ({movie.year}) </td>
+                  <td class="primary_photo"> <a href={"/movie/" + movie.movieId}></a> </td>
+                  <td class="result_text"> <a href={"/movie/" + movie.movieId}>{movie.title}</a> ({movie.year}) </td>
                 </tr>
               ))}
               </tbody>
