@@ -1,0 +1,31 @@
+/*! CSS Used from: https://m.media-amazon.com/images/G/01/imdb/css/collections/consumersite-4071830637._CB447212955_.css */
+a{background-color:transparent;-webkit-text-decoration-skip:objects;}
+img{border-style:none;}
+*,*:before,*:after{box-sizing:border-box;}
+img{vertical-align:middle;}
+h3{font-family:inherit;font-weight:bold;line-height:1.1;color:inherit;}
+h3{margin-top:20px;margin-bottom:10px;}
+h3{font-size:24px;}
+a:link{color:#136CB2;text-decoration:none;}
+a:visited{color:#70579D;text-decoration:none;}
+a:hover{color:#136CB2;text-decoration:underline;}
+a:active{color:#E7BE00;text-decoration:none;}
+a:link{color:#136CB2;text-decoration:none;}
+a:visited{color:#70579D;text-decoration:none;}
+a:hover{color:#136CB2;text-decoration:underline;}
+a:not([href]):hover{text-decoration:none;}
+a:active{color:#E7BE00;text-decoration:none;}
+img{border:none;}
+h3{color:#A58500;font-size:15px;margin:0 0 0.5em;padding:0;}
+.even{background-color:#fbfbfb;border:#fff 1px solid;}
+.odd{background-color:#f6f6f5;border:#fff 1px solid;}
+/*! CSS Used from: https://m.media-amazon.com/images/G/01/imdb/css/app/consumersite/find-1437944456._CB470042133_.css */
+.findList a,.findMoreMatches a{text-decoration:none;}
+.findSection{margin-top:20px;}
+.findSectionHeader{clear:left;}
+table.findList{border-collapse:collapse;width:100%;}
+table.findList td{padding:4px 6px 6px 6px;}
+table.findList .primary_photo{padding:0 4px 0 0;}
+table.findList td.primary_photo{width:32px;}
+div.findMoreMatches{background-color:#f0f0ee;color:#666;border-radius:0 0 10px 10px;font-size:12px;line-height:30px;padding-left:8px;}
+div.findMoreMatches a{font-weight:bold;}
