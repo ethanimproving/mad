@@ -35,8 +35,8 @@ public class AppAPIController {
         movieRepository.addMovie(movie.getTitle(), movie.getYear(), movie.getRating(), movie.getRunTime());
     }
 
-    @PutMapping("/movies/{movieId}")
-    public void changeRating(@PathVariable int movieId, @RequestParam int rating) {
-        movieRepository.changeRating(movieId, rating);
+    @PutMapping("/movies/{movieId}/edit")
+    public void changeRating(@PathVariable int movieId, @RequestBody Movie movie) {
+        movieRepository.changeRating(movieId, movie.getRating());
     }
 }
