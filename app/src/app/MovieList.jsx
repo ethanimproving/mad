@@ -28,7 +28,7 @@ export class MovieList extends React.Component {
           <div class="findMoreMatches">
               View:&nbsp; <a href="#give-me-more-damn-it!">More title matches</a>
               &nbsp;or&nbsp;
-              <a href="#we-don't-use-those-kinds-of-words">Exact title matches</a>
+              <a href="/new">Create a new title</a>
           </div>
         </div>
       </>
