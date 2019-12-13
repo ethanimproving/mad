@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoviesRepository } from '../api';
-
+import { Link } from 'react-router-dom';
 
 export class MovieDetails extends React.Component {
 
@@ -30,6 +30,7 @@ export class MovieDetails extends React.Component {
                 <span className="badge badge-primary badge-lg">
                   Rating: {this.state.movie.rating}
                 </span>
+                <Link to={'/movies/' + this.state.movie.movieId + "/edit"}>Edit</Link>
               </div>
             </div>
           </div>

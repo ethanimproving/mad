@@ -7,10 +7,6 @@ export class MovieEditor extends React.Component{
     moviesRepository = new MoviesRepository();  
 
     state = {
-      title: '',
-      year: '', 
-      rating: '',
-      runTime: '',
     };
    
 
@@ -49,7 +45,7 @@ export class MovieEditor extends React.Component{
                     <label htmlFor="rating">
                         Rating
                     </label>
-                    <input type="text"
+                    <input type="number"
                             id="rating"
                             name="rating"
                             className="form-control"
@@ -89,7 +85,7 @@ export class MovieEditor extends React.Component{
     componentDidMount(){
         let movieId = this.props.match.params.movieId;
         if(movieId){
-            this.moviesRepository.getMoviesById(movieId)
+            this.moviesRepository.getMovie(movieId)
         .then(movie => this.setState(movie));
         }
         
@@ -97,8 +93,8 @@ export class MovieEditor extends React.Component{
     
     onSubmit(){
         var onSaveComplete = () => this.setState({redirect: true});
-        if(this.state.id){
-            this.moviesRepository.updateMovie(this.state.id, this.state)
+        if(this.state.movieId){
+            this.moviesRepository.changeRating(this.state.movieId, this.state)
             .then(onSaveComplete);
         }else{
             this.moviesRepository.addMovie(this.state).then(onSaveComplete);

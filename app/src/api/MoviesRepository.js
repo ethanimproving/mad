@@ -36,6 +36,17 @@ export class MoviesRepository {
             reject();
         });
     });
+  }
+
+  changeRating(id, rating) {
+    return new Promise((resolve, reject) => {
+        axios.put(`${this.url}/${id}/edit`, rating)
+        .then(x => resolve(x.data))
+        .catch(x => {
+            alert(x);
+            reject();
+        });
+    });
 }
   
 }
