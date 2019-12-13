@@ -14,5 +14,16 @@ export class MoviesRepository {
         });
     });
   }
+
+  getMovie(movieId) {
+    return new Promise((resolve, reject) => {
+      axios.get(`${this.url}/${movieId}`)
+        .then(x => resolve(x.data))
+        .catch(x => {
+          alert(x);
+          reject();
+        });
+    });
+  }
   
 }
