@@ -3,7 +3,6 @@ package org.improving.mad.api;
 import org.improving.mad.MovieRepository;
 import org.improving.mad.entity.Movie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,9 +39,14 @@ public class AppAPIController {
 
     @PutMapping("/movies/{movieId}/edit")
     public ResponseEntity<Movie> changeRating(@PathVariable int movieId, @RequestBody Movie movie) {
-        Movie savedMovie = movieRepository.changeRating(movieId, movie.getRating());
+        Movie savedMovie = movieRepository.changeRating(movieId, movie);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedMovie.getMovieId()).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/movies/{movieId}")
+    public void deleteMovie(@PathVariable int movieId) {
+        movieRepository.deleteMovie(movieId);
     }
 }

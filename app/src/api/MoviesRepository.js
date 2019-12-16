@@ -28,7 +28,6 @@ export class MoviesRepository {
 
   addMovie(movie){
     return new Promise((resolve, reject) => {
-        debugger;
         axios.post(`${this.url}`, movie)
         .then(x => resolve(x.data))
         .catch(x => {
@@ -46,6 +45,14 @@ export class MoviesRepository {
             alert(x);
             reject();
         });
+    }); 
+  }
+
+  deleteMovie(movieId){
+    return new Promise((resolve, reject) => {
+        axios.delete(`${this.url}/${movieId}`)
+        .then(x => resolve(x.data))
+        .catch(x => alert(x));
     });
 }
   

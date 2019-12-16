@@ -72,7 +72,7 @@ public class MovieRepository {
 
     // UPDATE
 
-    public Movie changeRating(int id, int rating) {
+    public Movie changeRating(int id, Movie updates) {
         EntityManager em = JPAUtility.getEntityManager();
         EntityTransaction et = null;
         Movie movie = null;
@@ -80,7 +80,10 @@ public class MovieRepository {
             et = em.getTransaction();
             et.begin();
             movie = em.find(Movie.class, id);
-            movie.setRating(rating);
+            movie.setRating(updates.getRating());
+            movie.setTitle(updates.getTitle());
+            movie.setYear(movie.getYear());
+            movie.setRunTime(movie.getRunTime());
 
             em.persist(movie);
             et.commit();
@@ -91,6 +94,27 @@ public class MovieRepository {
             ex.printStackTrace();
         }
         return movie;
+    }
+
+    // DELETE
+
+    public void deleteMovie(int id) {
+        EntityManager em = JPAUtility.getEntityManager();
+        EntityTransaction et = null;
+        Movie movie;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            movie = em.find(Movie.class, id);
+            em.remove(movie);
+
+            et.commit();
+        } catch (Exception ex) {
+            if(et != null) {
+                et.rollback();
+            }
+            ex.printStackTrace();
+        }
     }
 
 }
