@@ -1,5 +1,8 @@
 package org.improving.mad.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,15 +26,19 @@ public class Movie implements Serializable {
     @Column(name = "runTime")
     private int runTime;
 
+    @Column(name = "isDeleted")
+    private boolean isDeleted;
+
     public Movie() {
     }
 
-    public Movie(int movieId, String title, int year, int rating, int runTime) {
+    public Movie(int movieId, String title, int year, int rating, int runTime, boolean isDeleted) {
         this.movieId = movieId;
         this.title = title;
         this.year = year;
         this.rating = rating;
         this.runTime = runTime;
+        this.isDeleted = isDeleted;
     }
 
     public String getTitle() {
@@ -72,5 +79,15 @@ public class Movie implements Serializable {
 
     public void setRunTime(int runTime) {
         this.runTime = runTime;
+    }
+
+    @JsonIgnore
+    @JsonProperty(value = "deleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
