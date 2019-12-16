@@ -15,7 +15,7 @@ public class MovieRepository {
 
     // CREATE
 
-    public void addMovie(String title, int year, int rating, int runTime) {
+    public Movie addMovie(String title, int year, int rating, int runTime) {
         EntityManager em = JPAUtility.getEntityManager();
         EntityTransaction et = null;
         try {
@@ -28,12 +28,14 @@ public class MovieRepository {
             movie.setRunTime(runTime);
             em.persist(movie);
             et.commit();
+            return movie;
         } catch (Exception ex) {
             if(et != null) {
                 et.rollback();
             }
             ex.printStackTrace();
         }
+        return null;
     }
 
     // READ
@@ -70,7 +72,7 @@ public class MovieRepository {
 
     // UPDATE
 
-    public void changeRating(int id, int rating) {
+    public Movie changeRating(int id, int rating) {
         EntityManager em = JPAUtility.getEntityManager();
         EntityTransaction et = null;
         Movie movie = null;
@@ -88,6 +90,7 @@ public class MovieRepository {
             }
             ex.printStackTrace();
         }
+        return movie;
     }
 
 }

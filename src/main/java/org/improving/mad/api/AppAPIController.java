@@ -31,12 +31,18 @@ public class AppAPIController {
     }
 
     @PostMapping("/movies")
-    public void newMovie(@RequestBody Movie movie){
-        movieRepository.addMovie(movie.getTitle(), movie.getYear(), movie.getRating(), movie.getRunTime());
+    public ResponseEntity<Movie> newMovie(@RequestBody Movie movie){
+        Movie savedMovie = movieRepository.addMovie(movie.getTitle(), movie.getYear(), movie.getRating(), movie.getRunTime());
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedMovie.getMovieId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/movies/{movieId}/edit")
-    public void changeRating(@PathVariable int movieId, @RequestBody Movie movie) {
-        movieRepository.changeRating(movieId, movie.getRating());
+    public ResponseEntity<Movie> changeRating(@PathVariable int movieId, @RequestBody Movie movie) {
+        Movie savedMovie = movieRepository.changeRating(movieId, movie.getRating());
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedMovie.getMovieId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 }
