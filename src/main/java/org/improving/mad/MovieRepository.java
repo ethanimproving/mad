@@ -82,8 +82,8 @@ public class MovieRepository {
             movie = em.find(Movie.class, id);
             movie.setRating(updates.getRating());
             movie.setTitle(updates.getTitle());
-            movie.setYear(movie.getYear());
-            movie.setRunTime(movie.getRunTime());
+            movie.setYear(updates.getYear());
+            movie.setRunTime(updates.getRunTime());
 
             em.persist(movie);
             et.commit();

@@ -37,9 +37,9 @@ export class MoviesRepository {
     });
   }
 
-  changeRating(id, rating) {
+  updateMovie(id, movie) {
     return new Promise((resolve, reject) => {
-        axios.put(`${this.url}/${id}/edit`, rating)
+        axios.put(`${this.url}/${id}/edit`, movie)
         .then(x => resolve(x.data))
         .catch(x => {
             alert(x);

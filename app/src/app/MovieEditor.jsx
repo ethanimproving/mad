@@ -94,7 +94,7 @@ export class MovieEditor extends React.Component{
     onSubmit(){
         var onSaveComplete = () => this.setState({redirect: true});
         if(this.state.movieId){
-            this.moviesRepository.changeRating(this.state.movieId, this.state)
+            this.moviesRepository.updateMovie(this.state.movieId, this.state)
             .then(onSaveComplete);
         }else{
             this.moviesRepository.addMovie(this.state).then(onSaveComplete);
