@@ -12,7 +12,7 @@ export class MovieEditor extends React.Component{
 
     render(){
         return <>
-            {this.state.redirect && <Redirect to="/" /> }
+            {this.state.redirect && <Redirect to={"/movie/" + this.props.match.params.movieId} /> }
             <form className="container">
                 <h1>Movie Editor</h1>
                 <div className="form-group">

@@ -29,3 +29,17 @@ table.findList .primary_photo{padding:0 4px 0 0;}
 table.findList td.primary_photo{width:32px;}
 div.findMoreMatches{background-color:#f0f0ee;color:#666;border-radius:0 0 10px 10px;font-size:12px;line-height:30px;padding-left:8px;}
 div.findMoreMatches a{font-weight:bold;}
+
+#movies img, #movie img{
+  width:100%;
+}
+
+@media(min-width:960px){
+  #movies .col-md-3 .well{
+    height: 390px;
+  }
+
+  #movies .col-md-3 img{
+    height:240px;
+  }
+}

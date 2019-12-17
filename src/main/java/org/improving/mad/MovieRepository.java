@@ -84,6 +84,7 @@ public class MovieRepository {
             movie.setTitle(updates.getTitle());
             movie.setYear(updates.getYear());
             movie.setRunTime(updates.getRunTime());
+            movie.setDeleted(updates.isDeleted());
 
             em.persist(movie);
             et.commit();
@@ -107,6 +108,27 @@ public class MovieRepository {
             et.begin();
             movie = em.find(Movie.class, id);
             movie.setDeleted(true);
+
+            em.persist(movie);
+            et.commit();
+        } catch (Exception ex) {
+            if(et != null) {
+                et.rollback();
+            }
+            ex.printStackTrace();
+        }
+        return movie;
+    }
+
+    public Movie restoreMovie(int id) {
+        EntityManager em = JPAUtility.getEntityManager();
+        EntityTransaction et = null;
+        Movie movie = null;
+        try {
+            et = em.getTransaction();
+            et.begin();
+            movie = em.find(Movie.class, id);
+            movie.setDeleted(false);
 
             em.persist(movie);
             et.commit();

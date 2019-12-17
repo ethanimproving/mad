@@ -2,7 +2,7 @@ import React from 'react';
 import { MoviesRepository } from '../api';
 
 
-export class MovieList extends React.Component {
+export class DeletedMovies extends React.Component {
 
   moviesRepository = new MoviesRepository();
 
@@ -14,7 +14,7 @@ export class MovieList extends React.Component {
     return (
       <>
         <div className="findSection">
-          <h3 className="findSectionHeader"><a name="tt"></a>Titles</h3>
+          <h3 className="findSectionHeader"><a name="tt"></a>Deleted Titles</h3>
           <table className="findList">
               <tbody>
               {this.state.movies.map((movie, i) => (
@@ -23,33 +23,28 @@ export class MovieList extends React.Component {
                   <td className="result_text"> <a href={"/movie/" + movie.movieId}>{movie.title}</a> ({movie.year}) </td>
                   <td>
                     <button type="button"
-                        className="btn btn-sm btn-danger"
+                        className="btn btn-sm btn-primary"
                         onClick={e => this.onDelete(movie.movieId) }>
-                        X
+                        Restore
                     </button>
                   </td>
                 </tr>
               ))}
               </tbody>
           </table>
-          <div className="findMoreMatches">
-              View:&nbsp; <a href="#give-me-more-please-and-thank-you:)!">More title matches</a>
-              &nbsp;or&nbsp;
-              <a href="/new">Create a new title</a>
-          </div>
         </div>
       </>
     );
   }
 
   componentDidMount() {
-    this.moviesRepository.getMovies()
+    this.moviesRepository.getDeletedMovies()
       .then(movies => this.setState({movies}));
   }
 
   onDelete(movieId) {
     if(window.confirm('Are you sure you want to delete?')) {
-      this.moviesRepository.deleteMovie(movieId)
+      this.moviesRepository.restoreMovie(movieId)
         .then(() => {
           this.setState(prevState => ({
               message: 'Movie has been deleted',

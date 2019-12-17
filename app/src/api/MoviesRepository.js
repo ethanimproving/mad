@@ -54,6 +54,25 @@ export class MoviesRepository {
         .then(x => resolve(x.data))
         .catch(x => alert(x));
     });
-}
+  }
+
+  getDeletedMovies() {
+    return new Promise((resolve, reject) => {
+      axios.get("http://localhost:8080/api/deleted")
+        .then(x => resolve(x.data))
+        .catch(x => {
+          alert(x);
+          reject();
+        });
+    });
+  }
+
+  restoreMovie(movieId){
+    return new Promise((resolve, reject) => {
+        axios.put(`http://localhost:8080/api/deleted/${movieId}/restore`)
+        .then(x => resolve(x.data))
+        .catch(x => alert(x));
+    });
+  }
   
 }

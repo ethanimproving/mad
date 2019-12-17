@@ -26,6 +26,12 @@ public class AppAPIController {
         return movies.stream().filter(m -> !m.isDeleted()).collect(Collectors.toList());
     }
 
+    @GetMapping("/deleted")
+    public List<Movie> deletedMovies() {
+        List<Movie> movies = movieRepository.getMovies();
+        return movies.stream().filter(m -> m.isDeleted()).collect(Collectors.toList());
+    }
+
     @GetMapping("/movies/{movieId}")
     public Movie movie(@PathVariable int movieId) {
         return movieRepository.getMovie(movieId);
@@ -50,5 +56,10 @@ public class AppAPIController {
     @DeleteMapping("/movies/{movieId}")
     public void deleteMovie(@PathVariable int movieId) {
         movieRepository.deleteMovie(movieId);
+    }
+
+    @PutMapping("/deleted/{movieId}/restore")
+    public void restore(@PathVariable int movieId) {
+        movieRepository.restoreMovie(movieId);
     }
 }
