@@ -1,6 +1,5 @@
 import React from 'react';
 import { MoviesRepository } from '../api';
-import { Redirect } from 'react-router-dom';
 
 
 export class MovieList extends React.Component {
@@ -14,7 +13,6 @@ export class MovieList extends React.Component {
   render() {
     return (
       <>
-        {this.state.redirect && <Redirect to="/" /> }
         <div class="findSection">
           <h3 class="findSectionHeader"><a name="tt"></a>Titles</h3>
           <table class="findList">
@@ -50,8 +48,15 @@ export class MovieList extends React.Component {
   }
 
   onDelete(movieId) {
-    this.moviesRepository.deleteMovie(movieId);
-    this.setState({redirect: true});
+    if(window.confirm('Are you sure you want to delete?')) {
+      this.moviesRepository.deleteMovie(movieId)
+        .then(() => {
+          this.setState(prevState => ({
+              message: 'Movie has been deleted',
+              movies: prevState.movies.filter(x => x.movieId !== movieId)
+          }));
+      });
+    }
   }
 
 }
