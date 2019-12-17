@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +22,8 @@ public class AppAPIController {
 
     @GetMapping("/movies")
     public List<Movie> movies() {
-        return movieRepository.getMovies();
+        List<Movie> movies = movieRepository.getMovies();
+        return movies.stream().filter(m -> !m.isDeleted()).collect(Collectors.toList());
     }
 
     @GetMapping("/movies/{movieId}")
@@ -39,7 +41,7 @@ public class AppAPIController {
 
     @PutMapping("/movies/{movieId}/edit")
     public ResponseEntity<Movie> changeRating(@PathVariable int movieId, @RequestBody Movie movie) {
-        Movie savedMovie = movieRepository.changeRating(movieId, movie);
+        Movie savedMovie = movieRepository.updateMovie(movieId, movie);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedMovie.getMovieId()).toUri();
         return ResponseEntity.created(location).build();
