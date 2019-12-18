@@ -13,6 +13,45 @@ export class MovieList extends React.Component {
   render() {
     return (
       <>
+      <nav className="navbar navbar-default">
+          <div className="container">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="/">MovieInfo</a>
+            </div>
+          </div>
+        </nav>
+
+        <div className="container">
+          <div className="jumbotron">
+            <h3 className="text-center">Search For Any Movie</h3>
+            <form id="searchForm">
+              <input type="text" className="form-control" id="searchText" placeholder="Search Movies..."/>
+            </form>
+          </div>
+
+          <div id="movies" className="row">
+            {this.state.movies.map((movie, i) => (
+            <div key={i} className="col-md-3">
+              <div className="well text-center">
+                <img src="https://via.placeholder.com/510x762.png"/>
+                <h5>{movie.title}</h5>
+                <a className="btn btn-primary" href={"/movie/" + movie.movieId}>Movie Details</a>
+              </div>
+            </div>
+            ))}
+          </div>
+          
+        </div>
+
+        
+
+        
+
+        <div className="container">
+          <div id="movies" className="row"></div>
+        </div>
+
+
         <div className="findSection">
           <h3 className="findSectionHeader"><a name="tt"></a>Titles</h3>
           <table className="findList">
