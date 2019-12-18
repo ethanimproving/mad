@@ -1,27 +1,36 @@
+/// <reference types='Cypress'/>
+
+import { MovieListPage, MovieEditorPage } from "../models"
+
+
 describe('movie_list', () => {
+  const movieList = new MovieListPage
+  const movieEditor = new MovieEditorPage
+
   it('should load', () => {
-    cy.visit('/')
-    cy.get('#root > div:nth-child(2) > div > h3').contains('Search For Any Movie')
+    movieList.visit();
+    movieList.getSearchTitle().contains('Search For Any Movie');
   })
 
   it('should add new movie', () => {
     // Add new movie
-    cy.get('#root > div.findSection > div > a:nth-child(2)').click()
+    movieList.getNewMovieButton().click()
 
     // Validate page was hit
     cy.url().should('include', '/new')
 
     // Fill out form
-    cy.get('#title').type('My New Movie')
-    cy.get('#year').type('2020')
-    cy.get('#rating').type('9')
-    cy.get('#runTime').type('102')
+    movieEditor.getTitle().type('My New Movie')    
+    movieEditor.getYear().type('2020')
+    movieEditor.getRating().type('9') 
+    movieEditor.getRunTime().type('102')
 
     // Submit form
-    cy.get('#root > form > div:nth-child(6) > button').click()
+    // movieEditor.getSubmitButton().click()
 
     // Check for new movie
-    cy.get('#movies').contains('My New Movie')
+    movieList.visit();
+    movieEditor.getMovies().contains('My New Movie')
 
   })
 })

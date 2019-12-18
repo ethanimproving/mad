@@ -3,5 +3,6 @@
   "include": [
     "./node_modules/cypress",
     "cypress/**/*.js"
-  ]
+  ],
+  "ignoreTestFiles": "**/cypress/integration/models/*"
 }
