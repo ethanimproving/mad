@@ -10,9 +10,12 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "movie")
 public class Movie implements Serializable {
-    @Id
+
+    @EmbeddedId
+    private MoviePK moviePK;
+
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "movieId", unique = true)
+    @Column(name = "movieId", insertable=false, updatable=false,  unique = true)
     private int movieId;
 
     @Column(name = "title", nullable = false)
@@ -30,7 +33,7 @@ public class Movie implements Serializable {
     @Column(name = "isDeleted")
     private boolean isDeleted;
 
-    @Column(name = "startDate")
+    @Column(name = "startDate", insertable=false, updatable=false)
     private Timestamp startDate;
 
     @Column(name = "endDate")
@@ -39,7 +42,8 @@ public class Movie implements Serializable {
     public Movie() {
     }
 
-    public Movie(int movieId, String title, int year, int rating, int runTime, boolean isDeleted, Timestamp startDate, Timestamp endDate) {
+    public Movie(MoviePK moviePK, int movieId, String title, int year, int rating, int runTime, boolean isDeleted, Timestamp startDate, Timestamp endDate) {
+        this.moviePK = moviePK;
         this.movieId = movieId;
         this.title = title;
         this.year = year;
@@ -114,5 +118,13 @@ public class Movie implements Serializable {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
+    }
+
+    public MoviePK getMoviePK() {
+        return moviePK;
+    }
+
+    public void setMoviePK(MoviePK moviePK) {
+        this.moviePK = moviePK;
     }
 }
