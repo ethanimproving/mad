@@ -32,6 +32,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^3.8.0"
+    "cypress": "^3.8.0",
+    "testcafe": "^1.7.0"
   }
 }

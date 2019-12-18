@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +24,12 @@ public class AppAPIController {
     @GetMapping("/movies")
     public List<Movie> movies() {
         List<Movie> movies = movieRepository.getMovies();
-        return movies.stream().filter(m -> !m.isDeleted()).collect(Collectors.toList());
+        return movies;
     }
 
     @GetMapping("/deleted")
     public List<Movie> deletedMovies() {
-        List<Movie> movies = movieRepository.getMovies();
+        var movies = movieRepository.getMovies();
         return movies.stream().filter(m -> m.isDeleted()).collect(Collectors.toList());
     }
 

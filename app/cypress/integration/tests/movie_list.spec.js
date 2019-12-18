@@ -4,8 +4,11 @@ import { MovieListPage, MovieEditorPage } from "../models"
 
 
 describe('movie_list', () => {
-  const movieList = new MovieListPage
-  const movieEditor = new MovieEditorPage
+
+  beforeEach() {
+    const movieList = new MovieListPage
+    const movieEditor = new MovieEditorPage
+  }
 
   it('should load', () => {
     movieList.visit();

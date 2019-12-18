@@ -8,7 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class MovieRepository {
@@ -40,7 +42,7 @@ public class MovieRepository {
 
     // READ
 
-    public List<Movie> getMovies() {
+    private List<Movie> getAllMovies() {
         EntityManager em = JPAUtility.getEntityManager();
         String query = "select m from Movie as m";
         TypedQuery<Movie> tq = em.createQuery(query, Movie.class);
@@ -52,6 +54,12 @@ public class MovieRepository {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public List<Movie> getMovies() {
+        List<Movie> movies = getAllMovies();
+        var nonDeletedMovies = movies.stream().filter(m -> !m.isDeleted()).collect(Collectors.toList());
+        return nonDeletedMovies.stream().filter(m -> m.getEndDate().toLocalDateTime().getYear() == 9999).collect(Collectors.toList());
     }
 
     public Movie getMovie(int id) {
@@ -79,15 +87,16 @@ public class MovieRepository {
         try {
             et = em.getTransaction();
             et.begin();
-            movie = em.find(Movie.class, id);
-            movie.setRating(updates.getRating());
-            movie.setTitle(updates.getTitle());
-            movie.setYear(updates.getYear());
-            movie.setRunTime(updates.getRunTime());
-            movie.setDeleted(updates.isDeleted());
 
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+            movie = em.find(Movie.class, id);
+            movie.setEndDate(timestamp);
             em.persist(movie);
+
             et.commit();
+            addMovie(updates.getTitle(), updates.getYear(), updates.getRating(), updates.getRunTime());
+
         } catch (Exception ex) {
             if(et != null) {
                 et.rollback();
