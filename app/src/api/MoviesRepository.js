@@ -74,5 +74,13 @@ export class MoviesRepository {
         .catch(x => alert(x));
     });
   }
+
+  searchMovies(searchText){
+    return new Promise((resolve, reject) => {
+      axios.get('http://www.omdbapi.com/?apikey=39835bb4&s='+searchText)
+      .then(x => resolve(x.data))
+      .catch(x => alert(x));
+    });
+  }
   
 }

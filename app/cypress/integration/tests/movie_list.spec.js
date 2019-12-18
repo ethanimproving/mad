@@ -16,13 +16,12 @@ describe('movie_list', () => {
     cy.get('#year').type('2020')
     cy.get('#rating').type('9')
     cy.get('#runTime').type('102')
-    cy.get('#root > form > div:nth-child(6) > button').click()
 
     // Submit form
+    cy.get('#root > form > div:nth-child(6) > button').click()
+
+    // Check for new movie
     cy.get('#movies').contains('My New Movie')
-
-
-
 
   })
 })
